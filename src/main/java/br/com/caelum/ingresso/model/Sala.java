@@ -3,6 +3,8 @@ package br.com.caelum.ingresso.model;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
+
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -22,14 +24,17 @@ public class Sala {
     @OneToMany(fetch = FetchType.EAGER)
     private List<Lugar> lugares = new ArrayList<>();
 
-    /**
+    private BigDecimal preco;
+    
+	/**
      * @deprecated hibernate only
      */
     public Sala() {
 
     }
 
-    public Sala(String nome) {
+    public Sala(String nome, BigDecimal preco) {
+    	this.preco = preco;
         this.nome = nome;
     }
 
@@ -48,7 +53,6 @@ public class Sala {
     public void setNome(String nome) {
         this.nome = nome;
     }
-
 
     public void add(Lugar lugar) {
         this.lugares.add(lugar);
@@ -73,4 +77,12 @@ public class Sala {
         Optional<Lugar> optional = this.lugares.stream().filter((x) -> fileira.equals(x.getFileira()) && posicao.equals(x.getPosicao())).findFirst();
         return optional.get().getId();
     }
+
+    public BigDecimal getPreco() {
+		return preco;
+	}
+
+	public void setPreco(BigDecimal preco) {
+		this.preco = preco;
+	}
 }
