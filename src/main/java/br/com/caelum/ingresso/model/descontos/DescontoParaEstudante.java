@@ -4,6 +4,11 @@ import java.math.BigDecimal;
 
 public class DescontoParaEstudante implements Desconto {
 	@Override
+	public String getDescricao() {
+		return "Estudante";
+	}
+
+	@Override
 	public BigDecimal aplicarDescontoSobre(BigDecimal precoOriginal) {
 		return precoOriginal.divide(new BigDecimal("2.0"));
 	}
